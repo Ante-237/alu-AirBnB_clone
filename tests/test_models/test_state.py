@@ -10,18 +10,18 @@ class TestCaseState(unittest.TestCase):
     def test_instance(self):
         """ test instance type """
         state = State()
-        self.assertIsInstance(self.state, State)
+        self.assertIsInstance(state, State)
 
     def test_is_class(self):
         """ test class """
         state = State()
-        self.assertEqual(str(type(self.state)),
+        self.assertEqual(str(type(state)),
                          "<class 'models.state.State'>")
 
     def test_is_subclass(self):
         """ test is subclass """
         state = State()
-        self.assertTrue(issubclass(type(self.state), BaseModel))
+        self.assertTrue(issubclass(type(state), BaseModel))
 
     def test_state_name(self):
         """ test mainly state name """

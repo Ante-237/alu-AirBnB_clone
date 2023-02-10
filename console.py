@@ -14,9 +14,40 @@ from models.amenity import Amenity
 class HBNBCommand(cmd.Cmd):
     existing_classes = ['BaseModel', 'User', 'City',
                         'State', 'Place', 'Review', 'Amenity', ' ']
+    existing_commands = ['all', 'update', 'create', 'delete',
+                         'count', 'destroy', 'show']
+    current_counter = 0
+    show_out = True
     prompt = "(hbnb)"
     # test = BaseModel()
     # print(test)
+
+    def default(self, line):
+        temp_list = line.split(".")
+        # if temp_list[0] in self.existing_classes:
+        # print(temp_list)
+        temp_list_two = temp_list[1].split("(")
+        # print(temp_list_two)
+        temp_list_two[1] = temp_list_two[1][:-1]
+        # print(temp_list_two)
+        class_name = temp_list[0]
+        command = temp_list_two[0]
+        argument = temp_list_two[1][1:-1]
+
+        if class_name in self.existing_classes:
+            if temp_list_two[0] in self.existing_commands:
+                if command == "all":
+                    self.do_all(class_name)
+                if command == "count":
+                    self.show_out = False
+                    self.do_all(class_name)
+                    self.show_out = True
+                    print(self.current_counter)
+                if command == "show":
+                    self.do_show(class_name + " " + argument)
+                if command == "destroy":
+                    self.do_destroy(class_name + " " + argument)
+                # eval("self.do_" + str(command) + "(" + class_name + ")")
 
     def emptyline(self):
         """ called when empty line
@@ -87,6 +118,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, class_type):
         """ prints all string representation of all instances based
         or not on the class name """
+        self.current_counter = 0;
         all_objects = storage.all()
         temp_dict = []
 
@@ -102,7 +134,9 @@ class HBNBCommand(cmd.Cmd):
                     out = all_objects[value]
                     if class_type == out.__class__.__name__:
                         temp_dict.append(str(out))
-                print(temp_dict)
+                        self.current_counter += 1
+                if self.show_out:
+                    print(temp_dict)
 
     def do_update(self, *argv):
         """ updates an instance based on the class\
