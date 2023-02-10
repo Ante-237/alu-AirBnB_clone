@@ -9,7 +9,7 @@ class TestCasePlace(unittest.TestCase):
     def test_instance(self):
         """ checking instance type """
         place = Place()
-        self.assertIsInstance(self.place, Place)
+        self.assertIsInstance(place, Place)
 
     def test_is_class(self):
         """ check if its a class """
@@ -43,7 +43,7 @@ class TestCasePlace(unittest.TestCase):
         """ testing the description """
         place = Place()
         place.description = "A place to stay in SF"
-        self.assertEqual(self.place.description, "A place to stay in SF")
+        self.assertEqual(place.description, "A place to stay in SF")
 
     def test_number_rooms(self):
         """ testing the room numbers """
